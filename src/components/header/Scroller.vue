@@ -1,6 +1,5 @@
 <template>
   <div id="scroller">
-    <div>{{ currentProp }}</div>
     <p
       v-for="s in sectionsProps"
       :key="s"
@@ -42,25 +41,31 @@ export default {
 
 <style lang="scss">
 #scroller {
-  border-radius: 5px;
+  border-radius: 9px;
   position: fixed;
   top: 3%;
   right: 2%;
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.75);
 }
 .link {
-  padding-top: 8px;
+  padding: 12px 20px;
   text-transform: capitalize;
   cursor: pointer;
   color: white;
   transition: 0.3s ease-in-out;
+  font-size: 15px;
+}
+.link:first-child {
+  padding-top: 24px;
+}
+.link:last-child {
+  padding-bottom: 24px;
 }
 .link:hover {
   color: orange;
 }
 
 .active {
-  color: rgb(0, 75, 255);
+  color: rgb(0, 100, 255);
 }
 </style>

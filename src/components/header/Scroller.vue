@@ -43,20 +43,22 @@ export default {
 <style lang="scss">
 #scroller {
   position: fixed;
-  top: 10%;
-  right: 10%;
+  top: 3%;
+  right: 3%;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
 }
 .link {
   text-transform: capitalize;
   cursor: pointer;
-  color: orange;
+  color: white;
   transition: 0.3s ease-in-out;
 }
 .link:hover {
-  color: black;
+  color: orange;
 }
 
 .active {
-  color: blue;
+  color: rgb(0, 75, 255);
 }
 </style>

@@ -62,7 +62,7 @@ export default {
   padding-bottom: 24px;
 }
 .link:hover {
-  color: orange;
+  color: rgb(0, 100, 255);
 }
 
 .active {

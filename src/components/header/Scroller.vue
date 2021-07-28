@@ -42,13 +42,15 @@ export default {
 
 <style lang="scss">
 #scroller {
+  border-radius: 5px;
   position: fixed;
   top: 3%;
-  right: 3%;
+  right: 2%;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
 }
 .link {
+  padding-top: 8px;
   text-transform: capitalize;
   cursor: pointer;
   color: white;

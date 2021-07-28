@@ -5,8 +5,16 @@
     <!--   <router-link to="/about">About</router-link> -->
     <!-- </div> -->
     <router-view />
+    <Footer />
   </div>
 </template>
+<script>
+import Footer from "@/components/footer/Footer";
+export default {
+  setup() {},
+  components: { Footer },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

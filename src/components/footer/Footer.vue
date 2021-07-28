@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" style="padding: 10px 0">
     <div class="credits">
       <p class="credits-text">
         The source of this project can be found at:

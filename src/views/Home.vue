@@ -33,7 +33,11 @@ export default {
 #three,
 #four,
 #five {
+  padding-top: 15px;
   border-top: 1px dotted rgba(0, 0, 0, 0.2);
   height: 100vh;
+  h1 {
+    font-size: 45px;
+  }
 }
 </style>

@@ -5,14 +5,11 @@
     <!--   <router-link to="/about">About</router-link> -->
     <!-- </div> -->
     <router-view />
-    <Footer />
   </div>
 </template>
 <script>
-import Footer from "@/components/footer/Footer";
 export default {
   setup() {},
-  components: { Footer },
 };
 </script>
 <style>
@@ -23,6 +20,19 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+body::-webkit-scrollbar {
+  width: 0.3vw;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(0, 100, 255);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

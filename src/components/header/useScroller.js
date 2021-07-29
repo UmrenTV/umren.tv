@@ -6,7 +6,7 @@ export default function(sections) {
   const checkSection = () => {
     const s = sections;
     s.forEach((sec) => {
-      const element = document.getElementById(sec);
+      const element = document.getElementById(sec.id);
       const rect = element.getBoundingClientRect();
       if (
         rect.bottom > 0 &&
@@ -17,12 +17,9 @@ export default function(sections) {
           (0.5 * window.innerHeight ||
             0.5 * document.documentElement.clientHeight)
       ) {
-        currentSection.value = sec;
+        currentSection.value = sec.id;
       }
     });
-  };
-  const scrollToSection = (s) => {
-    document.getElementById(s).scrollIntoView({ behavior: "smooth" });
   };
   watch(currentSection, (val) => {
     currentSection.value = val;
@@ -35,5 +32,5 @@ export default function(sections) {
     window.removeEventListener("scroll", checkSection);
   });
 
-  return { currentSection, scrollToSection };
+  return { currentSection };
 }

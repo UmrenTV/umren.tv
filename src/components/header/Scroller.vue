@@ -1,14 +1,29 @@
 <template>
   <div id="scroller">
-    <p
+    <div
       v-for="s in sectionsProps"
-      :key="s"
-      class="link"
-      :class="currentSection === s ? 'active' : ''"
+      :key="s.id"
+      class="links-container"
       @click="changeSection(s)"
     >
-      {{ s }}
-    </p>
+      <p class="link mobile" :class="currentSection === s.id ? 'active' : ''">
+        {{ s.mobile }}
+      </p>
+      <p class="link desktop" :class="currentSection === s.id ? 'active' : ''">
+        {{ s.desktop }}
+      </p>
+    </div>
+    <!-- <div class="scroller-mobile"> -->
+    <!--     <p -->
+    <!--         v-for="s in sectionsProps" -->
+    <!--         :key="s" -->
+    <!--         class="link" -->
+    <!--         :class="currentSection === s ? 'active' : ''" -->
+    <!--         @click="changeSection(s)" -->
+    <!--         > -->
+    <!--         {{ s.mobile }} -->
+    <!--     </p> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -22,7 +37,9 @@ export default {
   setup(props) {
     const currentSection = ref(props.sections[0]);
     const changeSection = (section) => {
-      document.getElementById(section).scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById(section.id)
+        .scrollIntoView({ behavior: "smooth" });
     };
     watch(props, (val) => {
       currentSection.value = val.current;
@@ -40,26 +57,39 @@ export default {
 
 <style lang="scss">
 #scroller {
-  border-radius: 0.8vw;
-  position: fixed;
-  width: 7vw;
-  top: 3%;
-  right: 2%;
   background-color: rgba(0, 0, 0, 0.75);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+.links-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
 }
 .link {
-  text-transform: capitalize;
-  cursor: pointer;
   color: white;
-  transition: 0.3s ease-in-out;
-  font-size: 1.3vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 3vw;
+  transition: 0.2s ease-in-out;
+  font-size: 1vw;
+  &.mobile {
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: block;
+      font-size: 3.5vw;
+    }
+  }
+  &.desktop {
+    font-size: 1.3vw;
+    display: block;
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+  }
 }
 // .link:first-child {
 //   padding-top: 0.5vw;
@@ -67,12 +97,22 @@ export default {
 // .link:last-child {
 //   padding-bottom: 0.5vw;
 // }
-.link:hover {
-  font-size: 1.5vw;
+.links-container:hover {
+  .link {
+    font-size: 1.8vw;
+    &.mobile {
+      font-size: 5vw;
+    }
+  }
 }
 
 .active {
   color: rgb(0, 100, 255);
-  font-size: 1.5vw;
+  &.desktop {
+    font-size: 1.8vw;
+  }
+  &.mobile {
+    font-size: 5vw;
+  }
 }
 </style>

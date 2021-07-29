@@ -22,7 +22,6 @@ export default function(sections) {
     });
   };
   const scrollToSection = (s) => {
-    console.warn(s);
     document.getElementById(s).scrollIntoView({ behavior: "smooth" });
   };
   watch(currentSection, (val) => {

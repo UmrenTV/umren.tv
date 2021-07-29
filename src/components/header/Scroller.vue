@@ -19,11 +19,10 @@ export default {
     sections: { type: Array, default: () => [] },
     current: { type: String, default: "" },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const currentSection = ref(props.sections[0]);
     const changeSection = (section) => {
-      currentSection.value = section;
-      emit("changed", section);
+      document.getElementById(section).scrollIntoView({ behavior: "smooth" });
     };
     watch(props, (val) => {
       currentSection.value = val.current;
@@ -41,31 +40,39 @@ export default {
 
 <style lang="scss">
 #scroller {
-  border-radius: 9px;
+  border-radius: 0.8vw;
   position: fixed;
+  width: 7vw;
   top: 3%;
   right: 2%;
   background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .link {
-  padding: 12px 20px;
   text-transform: capitalize;
   cursor: pointer;
   color: white;
   transition: 0.3s ease-in-out;
-  font-size: 15px;
+  font-size: 1.3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 3vw;
 }
-.link:first-child {
-  padding-top: 24px;
-}
-.link:last-child {
-  padding-bottom: 24px;
-}
+// .link:first-child {
+//   padding-top: 0.5vw;
+// }
+// .link:last-child {
+//   padding-bottom: 0.5vw;
+// }
 .link:hover {
-  color: rgb(0, 100, 255);
+  font-size: 1.5vw;
 }
 
 .active {
   color: rgb(0, 100, 255);
+  font-size: 1.5vw;
 }
 </style>

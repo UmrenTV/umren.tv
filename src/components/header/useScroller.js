@@ -4,7 +4,7 @@ export default function(sections) {
   const currentSection = ref(null);
 
   const checkSection = () => {
-    const s = sections;
+    const s = [...sections, { id: "footer", mobile: "F", desktop: "Footer" }];
     s.forEach((sec) => {
       const element = document.getElementById(sec.id);
       const rect = element.getBoundingClientRect();

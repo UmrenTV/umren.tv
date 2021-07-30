@@ -20,17 +20,41 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-
-body::-webkit-scrollbar {
-  width: 0.3vw;
+:root {
+  --color-primary: rgb(0, 100, 255);
+  --color-background: rgba(0, 0, 0, 0.7);
 }
 
+body::-webkit-scrollbar {
+  width: 0.8vw;
+}
+body::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 0.8vw;
+}
 body::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.7);
 }
 
-body::-webkit-scrollbar-thumb {
-  background: rgb(0, 100, 255);
+@media screen and (max-width: 812px) {
+  body::-webkit-scrollbar {
+    width: 1.2vw;
+  }
+  body::-webkit-scrollbar-thumb {
+    border-radius: 1.2vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body::-webkit-scrollbar {
+    width: 2vw;
+  }
+  body::-webkit-scrollbar-thumb {
+    border-radius: 2vw;
+  }
+}
+
+@media screen and (max-width: 812px) {
 }
 
 #app {

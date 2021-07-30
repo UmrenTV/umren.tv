@@ -5,30 +5,37 @@
       :key="s.id"
       class="links-container"
       @click="changeSection(s)"
+      :class="[currentSection === s.id ? 'active' : '', deviceType]"
+      :style="linksStyles(s.id)"
     >
-      <p class="link mobile" :class="currentSection === s.id ? 'active' : ''">
+      <p
+        class="link mobile"
+        v-if="deviceType === 'mobile'"
+        :class="currentSection === s.id ? 'active' : ''"
+      >
         {{ s.mobile }}
+        <transition name="span">
+          <span
+            v-if="currentSection === s.id ? 'active' : ''"
+            class="links-span"
+          >
+            {{ s.desktop }}</span
+          >
+        </transition>
       </p>
-      <p class="link desktop" :class="currentSection === s.id ? 'active' : ''">
+      <p
+        class="link desktop"
+        v-else
+        :class="currentSection === s.id ? 'active' : ''"
+      >
         {{ s.desktop }}
       </p>
     </div>
-    <!-- <div class="scroller-mobile"> -->
-    <!--     <p -->
-    <!--         v-for="s in sectionsProps" -->
-    <!--         :key="s" -->
-    <!--         class="link" -->
-    <!--         :class="currentSection === s ? 'active' : ''" -->
-    <!--         @click="changeSection(s)" -->
-    <!--         > -->
-    <!--         {{ s.mobile }} -->
-    <!--     </p> -->
-    <!-- </div> -->
   </div>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 export default {
   props: {
     sections: { type: Array, default: () => [] },
@@ -36,19 +43,66 @@ export default {
   },
   setup(props) {
     const currentSection = ref(props.sections[0]);
+    const deviceType = ref("");
+    const sectionProps = [
+      ...props.sections,
+      { id: "footer", mobile: "F", desktop: "Footer" },
+    ];
     const changeSection = (section) => {
       document
         .getElementById(section.id)
         .scrollIntoView({ behavior: "smooth" });
     };
+    const checkViewport = () => {
+      if (window.innerWidth <= 812) {
+        deviceType.value = "mobile";
+      } else {
+        deviceType.value = "desktop";
+      }
+    };
+
+    // const currentActive = (id) => {
+    //   if (currentSection.value === id) {
+    //     setTimeout(() => {
+    //       return true;
+    //     }, 100);
+    //   }
+    // };
+
+    const linksStyles = (id) => {
+      const activeWidth = 35;
+      if (deviceType.value === "mobile") {
+        if (currentSection.value === id) {
+          return `width: ${activeWidth}vw`;
+        } else {
+          const widthCalculated =
+            (100 - activeWidth) / (sectionProps.length - 1);
+          return `width: ${widthCalculated}vw`;
+        }
+      } else {
+        const widthCalculated = 100 / (sectionProps.length - 1);
+        return `width: ${widthCalculated}vw`;
+      }
+    };
+    onMounted(() => {
+      window.addEventListener("resize", checkViewport);
+      checkViewport();
+    });
+    onUnmounted(() => {
+      window.removeEventListener("resize", checkViewport);
+    });
+
     watch(props, (val) => {
       currentSection.value = val.current;
     });
 
     return {
+      deviceType,
       changeSection,
       currentSection,
-      sectionsProps: props.sections,
+      linksStyles,
+      // currentActive,
+      sectionsProps: sectionProps,
       currentProp: props.current,
     };
   },
@@ -69,26 +123,52 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  // flex: 1;
   cursor: pointer;
+  transition: 0s ease-in-out;
+  &.active {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  &.mobile {
+    transition: 0.1s ease-in-out;
+    &.active {
+      //  flex: 3;
+      background: rgba(0, 0, 0, 0.9);
+    }
+  }
 }
+.links-container:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+.links-span {
+  opacity: 1;
+  padding-left: 2vw;
+}
+.span-enter-active {
+  transition: 0s ease-in-out;
+  transition-delay: 0s;
+}
+.span-leave-active {
+  transition: 0s ease-in-out;
+  transition-delay: 0.1s;
+}
+.span-enter, .span-leave-to /* .span-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transition: 0s ease-in-out;
+  transition-delay: 0s;
+}
+
 .link {
   color: white;
-  transition: 0.2s ease-in-out;
+  transition: 0.1s ease-in-out;
   font-size: 1vw;
   &.mobile {
-    display: none;
-    @media screen and (max-width: 800px) {
-      display: block;
+    @media screen and (max-width: 812px) {
       font-size: 3.5vw;
     }
   }
   &.desktop {
-    font-size: 1.3vw;
-    display: block;
-    @media screen and (max-width: 800px) {
-      display: none;
-    }
+    font-size: 1.8vw;
   }
 }
 // .link:first-child {
@@ -99,20 +179,20 @@ export default {
 // }
 .links-container:hover {
   .link {
-    font-size: 1.8vw;
+    // font-size: 1.8vw;
     &.mobile {
-      font-size: 5vw;
+      // font-size: 5vw;
     }
   }
 }
 
 .active {
-  color: rgb(0, 100, 255);
+  color: var(--color-primary);
   &.desktop {
-    font-size: 1.8vw;
+    //font-size: 1.8vw;
   }
   &.mobile {
-    font-size: 5vw;
+    // font-size: 5vw;
   }
 }
 </style>

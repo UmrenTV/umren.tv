@@ -14,11 +14,11 @@ import Footer from "@/components/footer/Footer";
 export default {
   setup() {
     const sections = [
-      { id: "one", mobile: "1", desktop: "One" },
-      { id: "two", mobile: "2", desktop: "Two" },
-      { id: "three", mobile: "3", desktop: "Three" },
-      { id: "four", mobile: "4", desktop: "Four" },
-      { id: "five", mobile: "5", desktop: "Five" },
+      { id: "one", mobile: "1", desktop: "Welcome" },
+      { id: "two", mobile: "2", desktop: "Projects" },
+      { id: "three", mobile: "3", desktop: "Experience" },
+      { id: "four", mobile: "4", desktop: "Portfolio" },
+      { id: "five", mobile: "5", desktop: "Hire Me" },
     ];
     const { currentSection } = useScroller(sections);
     return { currentSection, sections };

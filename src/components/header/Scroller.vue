@@ -9,7 +9,7 @@
       :style="linksStyles(s.id)"
     >
       <div
-        class="link mobile"
+        class="link mobile unselectable"
         v-if="deviceType === 'mobile'"
         :class="currentSection === s.id ? 'active' : ''"
       >
@@ -117,6 +117,14 @@ export default {
   justify-content: space-between;
   height: 100%;
   width: 100%;
+}
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .links-container {
   display: flex;

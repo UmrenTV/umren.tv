@@ -8,7 +8,7 @@
       :class="[currentSection === s.id ? 'active' : '', deviceType]"
       :style="linksStyles(s.id)"
     >
-      <p
+      <div
         class="link mobile"
         v-if="deviceType === 'mobile'"
         :class="currentSection === s.id ? 'active' : ''"
@@ -22,14 +22,14 @@
             {{ s.desktop }}</span
           >
         </transition>
-      </p>
-      <p
+      </div>
+      <div
         class="link desktop"
         v-else
         :class="currentSection === s.id ? 'active' : ''"
       >
         {{ s.desktop }}
-      </p>
+      </div>
     </div>
   </div>
 </template>

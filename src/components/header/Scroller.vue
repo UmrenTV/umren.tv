@@ -17,14 +17,14 @@
         <transition name="span">
           <span
             v-if="currentSection === s.id ? 'active' : ''"
-            class="links-span"
+            class="links-span unselectable"
           >
             {{ s.desktop }}</span
           >
         </transition>
       </div>
       <div
-        class="link desktop"
+        class="link desktop unselectable"
         v-else
         :class="currentSection === s.id ? 'active' : ''"
       >

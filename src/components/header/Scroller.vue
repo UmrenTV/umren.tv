@@ -19,7 +19,6 @@
           <div
             class="links-span unselectable"
             :class="currentSection === s.id ? 'active' : ''"
-            :style="spanStyles(s.id)"
           >
             {{ s.desktop }}
           </div></transition
@@ -63,14 +62,6 @@ export default {
       }
     };
 
-    // const currentActive = (id) => {
-    //   if (currentSection.value === id) {
-    //     setTimeout(() => {
-    //       return true;
-    //     }, 100);
-    //   }
-    // };
-
     const widthCalculated = ref(null);
     const activeWidth = 35;
 
@@ -88,13 +79,6 @@ export default {
         return `width: ${widthCalculated.value}vw`;
       }
     };
-    const spanStyles = (id) => {
-      if (currentSection.value === id && widthCalculated && activeWidth) {
-        return `width: ${activeWidth - widthCalculated.value}vw`;
-      } else {
-        return "width: 0px";
-      }
-    };
     onMounted(() => {
       window.addEventListener("resize", checkViewport);
       checkViewport();
@@ -109,11 +93,9 @@ export default {
 
     return {
       deviceType,
-      spanStyles,
       changeSection,
       currentSection,
       linksStyles,
-      // currentActive,
       sectionsProps: sectionProps,
       currentProp: props.current,
     };
@@ -170,7 +152,6 @@ export default {
   opacity: 0;
   font-size: 0;
   padding: 0;
-  width: 0px;
   transition: 0.05s ease-in-out;
   &.active {
     opacity: 1;

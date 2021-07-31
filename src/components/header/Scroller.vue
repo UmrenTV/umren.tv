@@ -8,20 +8,22 @@
       :class="[currentSection === s.id ? 'active' : '', deviceType]"
       :style="linksStyles(s.id)"
     >
-      <div
-        class="link mobile unselectable"
-        v-if="deviceType === 'mobile'"
-        :class="currentSection === s.id ? 'active' : ''"
-      >
-        {{ s.mobile }}
+      <div class="mobile-container" v-if="deviceType === 'mobile'">
+        <div
+          class="link mobile unselectable"
+          :class="currentSection === s.id ? 'active' : ''"
+        >
+          {{ s.mobile }}
+        </div>
         <transition name="span">
-          <span
-            v-if="currentSection === s.id ? 'active' : ''"
+          <div
             class="links-span unselectable"
+            :class="currentSection === s.id ? 'active' : ''"
+            :style="spanStyles(s.id)"
           >
-            {{ s.desktop }}</span
-          >
-        </transition>
+            {{ s.desktop }}
+          </div></transition
+        >
       </div>
       <div
         class="link desktop unselectable"
@@ -69,19 +71,28 @@ export default {
     //   }
     // };
 
+    const widthCalculated = ref(null);
+    const activeWidth = 35;
+
     const linksStyles = (id) => {
-      const activeWidth = 35;
       if (deviceType.value === "mobile") {
         if (currentSection.value === id) {
           return `width: ${activeWidth}vw`;
         } else {
-          const widthCalculated =
+          widthCalculated.value =
             (100 - activeWidth) / (sectionProps.length - 1);
-          return `width: ${widthCalculated}vw`;
+          return `width: ${widthCalculated.value}vw`;
         }
       } else {
-        const widthCalculated = 100 / (sectionProps.length - 1);
-        return `width: ${widthCalculated}vw`;
+        widthCalculated.value = 100 / (sectionProps.length - 1);
+        return `width: ${widthCalculated.value}vw`;
+      }
+    };
+    const spanStyles = (id) => {
+      if (currentSection.value === id && widthCalculated && activeWidth) {
+        return `width: ${activeWidth - widthCalculated.value}vw`;
+      } else {
+        return "width: 0px";
       }
     };
     onMounted(() => {
@@ -98,6 +109,7 @@ export default {
 
     return {
       deviceType,
+      spanStyles,
       changeSection,
       currentSection,
       linksStyles,
@@ -118,6 +130,12 @@ export default {
   height: 100%;
   width: 100%;
 }
+.mobile-container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
 .unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -133,7 +151,7 @@ export default {
   align-items: center;
   // flex: 1;
   cursor: pointer;
-  transition: 0s ease-in-out;
+  transition: 0.1s ease-in-out;
   &.active {
     background: rgba(0, 0, 0, 0.85);
   }
@@ -149,21 +167,36 @@ export default {
   background: rgba(0, 0, 0, 0.85);
 }
 .links-span {
-  opacity: 1;
-  padding-left: 2vw;
+  opacity: 0;
+  font-size: 0;
+  padding: 0;
+  width: 0px;
+  transition: 0.05s ease-in-out;
+  &.active {
+    opacity: 1;
+    padding-left: 2vw;
+    font-size: 3.5vw;
+    transition: 0.1s 0.1s ease-in-out;
+  }
 }
 .span-enter-active {
-  transition: 0s ease-in-out;
-  transition-delay: 0s;
+  transition: 0.1s ease-in-out;
+  transition-delay: 0.3s;
 }
 .span-leave-active {
   transition: 0s ease-in-out;
-  transition-delay: 0.1s;
+  transition-delay: 0.05s;
 }
-.span-enter, .span-leave-to /* .span-leave-active below version 2.1.8 */ {
+.span-enter-from {
   opacity: 0;
-  transition: 0s ease-in-out;
-  transition-delay: 0s;
+  width: 0px;
+}
+.span-enter-to {
+  opacity: 1;
+}
+.span-leave-to {
+  opacity: 0;
+  width: 0px;
 }
 
 .link {

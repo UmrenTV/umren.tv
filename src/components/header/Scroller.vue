@@ -15,14 +15,12 @@
         >
           {{ s.mobile }}
         </div>
-        <transition name="span">
-          <div
-            class="links-span unselectable"
-            :class="currentSection === s.id ? 'active' : ''"
-          >
-            {{ s.desktop }}
-          </div></transition
+        <div
+          class="links-span unselectable"
+          :class="currentSection === s.id ? 'active' : ''"
         >
+          {{ s.desktop }}
+        </div>
       </div>
       <div
         class="link desktop unselectable"
@@ -160,25 +158,6 @@ export default {
     transition: 0.1s 0.1s ease-in-out;
   }
 }
-.span-enter-active {
-  transition: 0.1s ease-in-out;
-  transition-delay: 0.3s;
-}
-.span-leave-active {
-  transition: 0s ease-in-out;
-  transition-delay: 0.05s;
-}
-.span-enter-from {
-  opacity: 0;
-  width: 0px;
-}
-.span-enter-to {
-  opacity: 1;
-}
-.span-leave-to {
-  opacity: 0;
-  width: 0px;
-}
 
 .link {
   color: white;
@@ -193,28 +172,7 @@ export default {
     font-size: 1.8vw;
   }
 }
-// .link:first-child {
-//   padding-top: 0.5vw;
-// }
-// .link:last-child {
-//   padding-bottom: 0.5vw;
-// }
-.links-container:hover {
-  .link {
-    // font-size: 1.8vw;
-    &.mobile {
-      // font-size: 5vw;
-    }
-  }
-}
-
 .active {
   color: var(--color-primary);
-  &.desktop {
-    //font-size: 1.8vw;
-  }
-  &.mobile {
-    // font-size: 5vw;
-  }
 }
 </style>
